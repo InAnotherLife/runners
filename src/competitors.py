@@ -32,7 +32,7 @@ class Competitors(Settings):
             return men_first_name, men_last_name, women_first_name, \
                 women_last_name
 
-    def get_numbers(self):
+    def get_competitors_numbers(self):
         numbers = []
         for i in range(1, self.__competitors_amount + 1):
             numbers.append(str(i).zfill(3))
@@ -47,7 +47,7 @@ class Competitors(Settings):
     def gen_competitors(self):
         men_first_name, men_last_name, women_first_name, women_last_name = \
             self.read_competitors_file()
-        competitors_numbers = self.get_numbers()
+        competitors_numbers = self.get_competitors_numbers()
         men_amount, women_amount = self.get_man_amount()
         for number in competitors_numbers:
             random_first_name = random.choice(men_first_name)
@@ -58,12 +58,12 @@ class Competitors(Settings):
             }
 
     def show_results(self):
-        competitors = json.dumps(
-            self.__competitors, indent=4, ensure_ascii=False)
+        competitors = json.dumps(self.__competitors, indent=4,
+                                 ensure_ascii=False)
         print(competitors)
 
     def save_results(self):
-        """Сохранение данных о спортсменах и результатов в файл."""
+        """Сохранение данных о спортсменах в файл."""
         with open(self._config.get('Paths', 'competitors_data_file'), 'w',
                   encoding='utf-8') as competitors_data_file:
             json.dump(self.__competitors, competitors_data_file,
@@ -72,7 +72,7 @@ class Competitors(Settings):
 
 if __name__ == '__main__':
     competitors = Competitors()
-    competitors.competitors_amount = 100
+    competitors.competitors_amount = 50
     competitors.gen_competitors()
     competitors.show_results()
     competitors.save_results()
