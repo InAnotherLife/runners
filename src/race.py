@@ -25,17 +25,17 @@ class Race(Settings):
         return start_time.strftime('%H:%M:%S,%f'), finish_time.strftime(
             '%H:%M:%S,%f')
 
-    def calc_results(self):
+    def calc_race(self):
         competitors_numbers = self.get_numbers()
         for value in competitors_numbers:
             start_time, finish_time = self.get_times()
-            self.__results += f'{value} start {start_time}\n'
-            self.__results += f'{value} finish {finish_time}\n'
+            self.__results += f'{value} старт {start_time}\n'
+            self.__results += f'{value} финиш {finish_time}\n'
 
-    def show_results(self):
+    def show_race(self):
         print(''.join(self.__results))
 
-    def save_results(self):
+    def save_race(self):
         with open(self._config.get('Paths', 'results_file'), 'w',
                   encoding='utf-8') as output_file:
             for value in self.__results:
@@ -44,6 +44,6 @@ class Race(Settings):
 
 if __name__ == '__main__':
     race = Race()
-    race.calc_results()
-    race.show_results()
-    race.save_results()
+    race.calc_race()
+    race.show_race()
+    race.save_race()

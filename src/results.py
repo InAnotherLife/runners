@@ -21,13 +21,13 @@ class Results(Settings):
         """
         Проверка строки на валидность.
         arg: 1. Порядковый номер спортсмена
-             2. Действие (start или finish)
+             2. Действие (старт или финиш)
              3. Время в формате ЧЧ:ММ:СС,дст
         return: None
         """
         if not number.isdigit():
             raise Exception('File is damaged1!')
-        if action not in ['start', 'finish']:
+        if action not in ['старт', 'финиш']:
             raise Exception('File is damaged2!')
         if not re.match(r'^(0\d|1\d|2[0-4]):([0-5]\d):([0-5]\d),\d{6}$', time):
             raise Exception('File is damaged3!')
@@ -56,9 +56,9 @@ class Results(Settings):
                     time = dt.strptime(str_2[2], '%H:%M:%S,%f') - \
                         dt.strptime(str_1[2], '%H:%M:%S,%f')
                     results_list.append(
-                        {'Нагрудный номер': number,
-                         'Имя': competitor['First name'],
-                         'Фамилия': competitor['Last name'],
+                        {'Номер': number,
+                         'Участник': f"{competitor['Имя']} "
+                                     f"{competitor['Фамилия']}",
                          'Результат': str(time).replace('.', ',')[2:-4]}
                     )
                 return results_list
@@ -67,7 +67,7 @@ class Results(Settings):
             except KeyError:
                 print('This key does not exist!')
 
-    def get_results(self):
+    def calc_results(self):
         """
         Метод сортирует результаты первой попытки и возвращает словарь, в
         котором ключи - места занятые спортсменами в порядке возрастания, а
@@ -80,11 +80,10 @@ class Results(Settings):
 
     def show_results(self):
         """Вывод данных о спортсменах и результатов в консоль."""
-        print(f"{'Занятое место':<15}{'Нагрудный номер':<20}{'Имя':<15}"
-              f"{'Фамилия':<15}{'Результат':<15}")
+        print(f"{'Место':<10}{'Номер':<10}{'Участник':<20}{'Результат':<15}")
         for place, data in self.__results.items():
-            print(f"{place:<15}{data['Нагрудный номер']:<20}{data['Имя']:<15}"
-                  f"{data['Фамилия']:<15}{data['Результат']:<15}")
+            print(f"{place:<10}{data['Номер']:<10}{data['Участник']:<20}"
+                  f"{data['Результат']:<15}")
 
     def save_results(self):
         """Сохранение данных о спортсменах и результатов в файл."""
@@ -96,6 +95,6 @@ class Results(Settings):
 
 if __name__ == '__main__':
     results = Results()
-    results.get_results()
+    results.calc_results()
     results.show_results()
     results.save_results()
