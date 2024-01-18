@@ -85,7 +85,7 @@ class Interface:
                 print()
             elif menu == 3:
                 if self.check_menu_item():
-                    self.__results.calc_results()
+                    self.__results.get_results()
                     self.__results.show_results()
                     print()
             elif menu == 4:
