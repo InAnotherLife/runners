@@ -30,8 +30,9 @@ class Competitors(Settings):
         """
         if value <= 0:
             raise ValueError(
-                f'Количество спортсменов не может быть отрицательным или '
-                f'равным нулю!')
+                f"{'Количество спортсменов не может быть отрицательным или '}"
+                f"{'равным нулю!'}"
+            )
         self.__competitors_amount = value
 
     def read_competitors_file(self):
@@ -46,8 +47,8 @@ class Competitors(Settings):
             men_first_name = competitors_file.readline().strip().split(' ')
             women_last_name = competitors_file.readline().strip().split(' ')
             women_first_name = competitors_file.readline().strip().split(' ')
-            return men_first_name, men_last_name, women_first_name, \
-                women_last_name
+            return (men_first_name, men_last_name, women_first_name,
+                    women_last_name)
 
     def get_competitors_numbers(self):
         """
@@ -81,8 +82,8 @@ class Competitors(Settings):
         arg: None
         return: None
         """
-        men_first_name, men_last_name, women_first_name, women_last_name = \
-            self.read_competitors_file()
+        men_first_name, men_last_name, women_first_name, women_last_name = (
+            self.read_competitors_file())
         competitors_numbers = self.get_competitors_numbers()
         men_amount, women_amount = self.get_man_amount()
         for number in competitors_numbers:
