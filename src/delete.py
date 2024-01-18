@@ -12,5 +12,5 @@ class DeleteResult(Settings):
             os.remove(self._config.get('Paths', 'competitors_data_file'))
             os.remove(self._config.get('Paths', 'results_file'))
             os.remove(self._config.get('Paths', 'output_file'))
-        except FileNotFoundError:
-            print('')
+        except Exception:
+            pass
