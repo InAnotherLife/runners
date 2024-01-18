@@ -11,7 +11,11 @@ class Results(Settings):
         self.__results = {}
 
     def read_competitors_file(self):
-        """Чтение файла с данными спортсменов."""
+        """
+        Чтение файла с данными спортсменов.
+        arg: None
+        return: Dict
+        """
         with open(self._config.get('Paths', 'competitors_data_file'), 'r',
                   encoding='utf-8') as competitors_file:
             competitors_data = json.load(competitors_file)
@@ -26,17 +30,21 @@ class Results(Settings):
         return: None
         """
         if not number.isdigit():
-            raise Exception('File is damaged1!')
+            raise Exception(
+                'Ошибка! Номер спортсмена может содержать только цифры.')
         if action not in ['старт', 'финиш']:
-            raise Exception('File is damaged2!')
+            raise Exception(
+                "Ошибка! Действие может быть только 'старт' или 'финиш'.")
         if not re.match(r'^(0\d|1\d|2[0-4]):([0-5]\d):([0-5]\d),\d{6}$', time):
-            raise Exception('File is damaged3!')
+            raise Exception('Ошибка! Неправильный формат времени забега.')
 
     def parse_results_file(self):
         """
         Чтение файла с результатами первой попытки и его парсинг.
         Метод возвращает список внутри, которого находится словарь с
         порядковыми номерами спортсменов и, соответствующим ему, временем.
+        arg: None
+        return: List
         """
         results_list = []
         competitors_data = self.read_competitors_file()
@@ -48,7 +56,8 @@ class Results(Settings):
                     str_1 = line_1.strip().split(' ')
                     str_2 = line_2.strip().split(' ')
                     if len(str_1) != 3 or len(str_2) != 3:
-                        raise Exception('File is damaged4!')
+                        raise Exception(
+                            'Ошибка! Файл с результатами забега поврежден.')
                     self.check_str(str_1[0], str_1[1], str_1[2])
                     self.check_str(str_2[0], str_2[1], str_2[2])
                     number = str_1[0]
@@ -63,15 +72,17 @@ class Results(Settings):
                     )
                 return results_list
             except IndexError:
-                print('File is damaged!')
+                print('Ошибка! Файл с данными спортсменов поврежден.')
             except KeyError:
-                print('This key does not exist!')
+                print('Ошибка! Спортсмена с таким номером не существует.')
 
     def calc_results(self):
         """
         Метод сортирует результаты первой попытки и возвращает словарь, в
         котором ключи - места занятые спортсменами в порядке возрастания, а
         значения ключей - данные о спортсменах и результаты.
+        arg: None
+        return: None
         """
         results_data = self.parse_results_file()
         results_data.sort(key=lambda x: x['Результат'])
@@ -79,22 +90,23 @@ class Results(Settings):
             self.__results[i] = data
 
     def show_results(self):
-        """Вывод данных о спортсменах и результатов в консоль."""
+        """
+        Вывод данных о спортсменах и результатов в консоль.
+        arg: None
+        return: None
+        """
         print(f"{'Место':<10}{'Номер':<10}{'Участник':<20}{'Результат':<15}")
         for place, data in self.__results.items():
             print(f"{place:<10}{data['Номер']:<10}{data['Участник']:<20}"
                   f"{data['Результат']:<15}")
 
     def save_results(self):
-        """Сохранение данных о спортсменах и результатов в файл."""
+        """
+        Сохранение данных о спортсменах и результатов в файл.
+        arg: None
+        return: None
+        """
         with open(self._config.get('Paths', 'output_file'), 'w',
                   encoding='utf-8') as output_file:
             json.dump(self.__results, output_file, ensure_ascii=False,
                       indent=4)
-
-
-if __name__ == '__main__':
-    results = Results()
-    results.calc_results()
-    results.show_results()
-    results.save_results()
