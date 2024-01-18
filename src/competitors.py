@@ -15,7 +15,7 @@ class Competitors(Settings):
         """
         Геттер, возвращает значение переменной __competitors_amount.
         arg: None
-        return: Int
+        return: int
         """
         return self.__competitors_amount
 
@@ -25,7 +25,7 @@ class Competitors(Settings):
         Сеттер, устанавливает значение переменной __competitors_amount.
         Метод проверяет, что значение value не является отрицательным или
         равным нулю. Если условие не выполняется, генерирует исключение.
-        arg: Int
+        arg: int
         return: None
         """
         if value <= 0:
@@ -39,7 +39,7 @@ class Competitors(Settings):
         """
         Чтение фамилий и имен спортсменов из файла.
         arg: None
-        return: List, list, list, list
+        return: list, list, list, list
         """
         with open(self._config.get('Paths', 'competitors_file'), 'r',
                   encoding='utf-8-sig') as competitors_file:
@@ -54,7 +54,7 @@ class Competitors(Settings):
         """
         Генерирует номера спортсменов.
         arg: None
-        return: List
+        return: list
         """
         numbers = [str(i).zfill(3)
                    for i in range(1, self.__competitors_amount + 1)]
@@ -65,7 +65,7 @@ class Competitors(Settings):
         """
         Генерирует количество мужчин и женщин.
         arg: None
-        return: Int, int
+        return: int, int
         """
         men_amount = random.randint(0, self.__competitors_amount)
         women_amount = self.__competitors_amount - men_amount

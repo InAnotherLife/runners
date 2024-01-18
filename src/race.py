@@ -14,7 +14,7 @@ class Race(Settings):
         """
         Чтение файла с номерами спортсменов.
         arg: None
-        return: Dict
+        return: dict
         """
         with open(self._config.get('Paths', 'competitors_data_file'), 'r',
                   encoding='utf-8') as competitors_data_file:
@@ -28,7 +28,7 @@ class Race(Settings):
         Метод возвращает время старта и время финиша в формате %H:%M:%S,%f в
         виде строк.
         arg: None
-        return: Str, str
+        return: str, str
         """
         start_time = datetime.datetime.now()
         finish_time = start_time + datetime.timedelta(

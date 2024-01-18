@@ -39,7 +39,7 @@ class Interface:
         времени забега. Если данные не были сгенерированы, в консоль выводится
         сообщение об ошибке.
         arg: None
-        return: Bool
+        return: bool
         """
         if not self.__gen_competitors:
             print('Ошибка! Необходимо сгенерировать данные спортсменов.')

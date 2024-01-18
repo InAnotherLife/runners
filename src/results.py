@@ -14,7 +14,7 @@ class Results(Settings):
         """
         Чтение файла с данными спортсменов.
         arg: None
-        return: Dict
+        return: dict
         """
         with open(self._config.get('Paths', 'competitors_data_file'), 'r',
                   encoding='utf-8') as competitors_file:
@@ -48,7 +48,7 @@ class Results(Settings):
         возвращает список словарей с данными спортсменов. Если происходит
         ошибка, то выбрасывается исключение.
         arg: None
-        return: List
+        return: list
         """
         results_list = []
         competitors_data = self.read_competitors_file()
