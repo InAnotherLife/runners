@@ -3,7 +3,7 @@ name: Runners workflow
 on: push
 
 jobs:
-  backend_tests:
+  test:
     name: Test code with flake8
     runs-on: ubuntu-latest
     steps:
