@@ -7,6 +7,8 @@ from settings import Settings
 
 class Interface:
     def __init__(self):
+        # Используется паттерн Facade для создания общего интерфейса к системе
+        # подклассов
         self.__settings = Settings()
         self.__competitors = Competitors()
         self.__race = Race()
@@ -16,6 +18,11 @@ class Interface:
         self.__gen_race = False
 
     def show_menu(self):
+        """
+        Выводит меню программы в консоль.
+        arg: None
+        return: None
+        """
         print('Выберите пункт меню:')
         print('1. Сгенерировать данные спортсменов')
         print('2. Сгенерировать время забега')
@@ -26,17 +33,30 @@ class Interface:
         print()
 
     def check_menu_item(self):
+        """
+        Метод проверяет переменные __gen_competitors и __gen_race. Переменные
+        меняют значение на True, если были сгенерированы данные о спортсменах и
+        времени забега. Если данные не были сгенерированы, в консоль выводится
+        сообщение об ошибке.
+        arg: None
+        return: Bool
+        """
         if not self.__gen_competitors:
             print('Ошибка! Необходимо сгенерировать данные спортсменов.')
             print()
             return False
-        if not self.__gen_competitors:
+        if not self.__gen_race:
             print('Ошибка! Необходимо сгенерировать время забега.')
             print()
             return False
         return True
 
     def start_runners(self):
+        """
+        Главное меню программы.
+        arg: None
+        return: None
+        """
         print('Меню программы:')
         print()
         while True:
