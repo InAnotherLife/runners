@@ -62,15 +62,14 @@ class Competitors(Settings):
         random.shuffle(numbers)
         return numbers
 
-    def get_man_amount(self):
+    def get_men_amount(self):
         """
-        Генерирует количество мужчин и женщин.
+        Генерирует количество мужчин.
         arg: None
         return: int, int
         """
         men_amount = random.randint(0, self.__competitors_amount)
-        women_amount = self.__competitors_amount - men_amount
-        return men_amount, women_amount
+        return men_amount
 
     def gen_competitors(self):
         """
@@ -86,10 +85,14 @@ class Competitors(Settings):
         men_first_name, men_last_name, women_first_name, women_last_name = (
             self.read_competitors_file())
         competitors_numbers = self.get_competitors_numbers()
-        men_amount, women_amount = self.get_man_amount()
-        for number in competitors_numbers:
-            random_first_name = random.choice(men_first_name)
-            random_last_name = random.choice(men_last_name)
+        men_amount = self.get_men_amount()
+        for i, number in enumerate(competitors_numbers):
+            if i in range(0, men_amount):
+                random_first_name = random.choice(men_first_name)
+                random_last_name = random.choice(men_last_name)
+            else:
+                random_first_name = random.choice(women_first_name)
+                random_last_name = random.choice(women_last_name)
             self.__competitors[number] = {
                 'Имя': random_first_name,
                 'Фамилия': random_last_name
