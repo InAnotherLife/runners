@@ -29,7 +29,7 @@ class Interface:
         print('3. Расчет результатов забега')
         print('4. Сохранить расчет результатов в файл')
         print('5. Удалить созданные файлы')
-        print('6. Выйти из программы')
+        print('0. Выйти из программы')
         print()
 
     def check_menu_item(self):
@@ -101,7 +101,7 @@ class Interface:
                     self.__gen_competitors = False
                     self.__gen_race = False
                     self.__delete.delete_results()
-            elif menu == 6:
+            elif menu == 0:
                 print('Выход из программы.')
                 exit()
             else:
