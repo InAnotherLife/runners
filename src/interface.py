@@ -96,7 +96,7 @@ class Interface:
                     self.__results.save_results()
             elif menu == 5:
                 if self.check_menu_item():
-                    print('Результаты расчета успешно удалены.')
+                    print('Файлы успешно удалены.')
                     print()
                     self.__gen_competitors = False
                     self.__gen_race = False

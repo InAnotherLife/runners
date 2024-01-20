@@ -19,13 +19,13 @@ class Race(Settings):
         with open(self._config.get('Paths', 'competitors_data_file'), 'r',
                   encoding='utf-8') as competitors_data_file:
             competitors_data = json.load(competitors_data_file)
-            return competitors_data.keys()
+            return competitors_data
 
     def get_times(self):
         """
         Генерация случайного времени забега. Метод получает текущее время и
         прибавляет к нему случайное количество минут, секунд и микросекунд.
-        Метод возвращает время старта и время финиша в формате %H:%M:%S,%f в
+        Метод возвращает время старта и время финиша в формате %H:%M:%S.%f в
         виде строк.
         arg: None
         return: str, str
@@ -34,8 +34,7 @@ class Race(Settings):
         finish_time = start_time + datetime.timedelta(
             minutes=random.randint(1, 59), seconds=random.randint(0, 59),
             microseconds=random.randint(0, 999999))
-        return start_time.strftime('%H:%M:%S,%f'), finish_time.strftime(
-            '%H:%M:%S,%f')
+        return start_time.time().isoformat(), finish_time.time().isoformat()
 
     def calc_race(self):
         """
@@ -48,8 +47,7 @@ class Race(Settings):
         competitors_numbers = self.get_numbers()
         for value in competitors_numbers:
             start_time, finish_time = self.get_times()
-            self.__results += f'{value} старт {start_time}\n'
-            self.__results += f'{value} финиш {finish_time}\n'
+            self.__results += f'{value} {start_time} {finish_time}\n'
 
     def show_race(self):
         """
