@@ -38,7 +38,7 @@ class Results(Settings):
             for line in results_file:
                 line_list = line.strip().split(' ')
                 number = line_list[0]
-                competitor = competitors_data.get(number, None)
+                competitor = competitors_data.get(number)
                 time = dt.strptime(line_list[2], '%H:%M:%S.%f') - (
                     dt.strptime(line_list[1], '%H:%M:%S.%f'))
                 results_list.append(
