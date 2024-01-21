@@ -35,24 +35,20 @@ class Results(Settings):
         competitors_data = self.read_competitors_file()
         with open(self._config.get('Paths', 'results_file'), 'r',
                   encoding='utf-8-sig') as results_file:
-            try:
-                for line in results_file:
-                    line_list = line.strip().split(' ')
-                    number = line_list[0]
-                    competitor = competitors_data[number]
-                    time = dt.strptime(line_list[2], '%H:%M:%S.%f') - (
-                        dt.strptime(line_list[1], '%H:%M:%S.%f'))
-                    results_list.append(
-                        {'Номер': number,
-                         'Участник': f"{competitor['Имя']} "
-                                     f"{competitor['Фамилия']}",
-                         'Результат': str(time)[2:-4]}
-                    )
-                return results_list
-            except IndexError:
-                print('Ошибка! Файл с данными спортсменов поврежден.')
-            except KeyError:
-                print('Ошибка! Спортсмена с таким номером не существует.')
+            for line in results_file:
+                line_list = line.strip().split(' ')
+                number = line_list[0]
+                competitor = competitors_data.get(number, None)
+                time = dt.strptime(line_list[2], '%H:%M:%S.%f') - (
+                    dt.strptime(line_list[1], '%H:%M:%S.%f'))
+                results_list.append(
+                    {'Номер': number,
+                     'Участник': f"{competitor['Имя']} "
+                                 f"{competitor['Фамилия']}",
+                     'Результат': str(time)[2:-4]
+                     }
+                )
+            return results_list
 
     def get_results(self):
         """
