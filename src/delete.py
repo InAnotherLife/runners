@@ -9,14 +9,11 @@ class DeleteResult(Settings):
 
     def delete_results(self):
         """
-        Удаляет результаты расчета. Метод при возникновении любых исключений
-        ничего не делает.
+        Удаляет созданные файлы.
         arg: None
         return: None
         """
-        try:
-            os.remove(self._config.get('Paths', 'competitors_data_file'))
-            os.remove(self._config.get('Paths', 'results_file'))
-            os.remove(self._config.get('Paths', 'output_file'))
-        except Exception:
-            pass
+        paths = dict(self._config.items('Paths')).values()
+        for path in paths:
+            if os.path.isfile(path):
+                os.remove(path)
