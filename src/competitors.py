@@ -42,7 +42,7 @@ class Competitors(Settings):
         arg: None
         return: list, list, list, list
         """
-        with open(self._config.get('Paths', 'competitors_file'), 'r',
+        with open(self._config.get('Data', 'competitors_file'), 'r',
                   encoding='utf-8-sig') as competitors_file:
             men_last_name = competitors_file.readline().strip().split(' ')
             men_first_name = competitors_file.readline().strip().split(' ')
