@@ -18,8 +18,7 @@ class Race(Settings):
         """
         with open(self._config.get('Paths', 'competitors_data_file'), 'r',
                   encoding='utf-8') as competitors_data_file:
-            competitors_data = json.load(competitors_data_file)
-            return competitors_data
+            return json.load(competitors_data_file)
 
     def get_times(self):
         """

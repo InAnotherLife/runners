@@ -23,9 +23,8 @@ class Competitors(Settings):
     def competitors_amount(self, value):
         """
         Сеттер, устанавливает значение переменной __competitors_amount.
-        Метод проверяет, что значение переменной value не является
-        отрицательным или равным нулю. Если условие не выполняется, выбрасывает
-        исключение.
+        Метод также проверяет, что значение переменной value не является
+        отрицательным или равным нулю.
         arg: int
         return: None
         """
@@ -68,8 +67,7 @@ class Competitors(Settings):
         arg: None
         return: int, int
         """
-        men_amount = random.randint(0, self.__competitors_amount)
-        return men_amount
+        return random.randint(0, self.__competitors_amount)
 
     def gen_competitors(self):
         """
@@ -104,9 +102,7 @@ class Competitors(Settings):
         arg: None
         return: None
         """
-        competitors = json.dumps(self.__competitors, indent=4,
-                                 ensure_ascii=False)
-        print(competitors)
+        print(json.dumps(self.__competitors, indent=4, ensure_ascii=False))
 
     def save_competitors(self):
         """

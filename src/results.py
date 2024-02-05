@@ -17,8 +17,7 @@ class Results(Settings):
         """
         with open(self._config.get('Paths', 'competitors_data_file'), 'r',
                   encoding='utf-8') as competitors_file:
-            competitors_data = json.load(competitors_file)
-            return competitors_data
+            return json.load(competitors_file)
 
     def parse_results_file(self):
         """
@@ -26,8 +25,7 @@ class Results(Settings):
         следующие действия: чтение двух последовательных строк и разбиение
         их на отдельные элементы, проверка строк на валидность, получение
         номера спортсмена, вычисление времени забега спортсмена. Метод
-        возвращает список словарей с данными спортсменов. Если происходит
-        ошибка, то выбрасывается исключение.
+        возвращает список словарей с данными спортсменов.
         arg: None
         return: list
         """
@@ -39,15 +37,16 @@ class Results(Settings):
                 line_list = line.strip().split(' ')
                 number = line_list[0]
                 competitor = competitors_data.get(number)
-                time = dt.strptime(line_list[2], '%H:%M:%S.%f') - (
-                    dt.strptime(line_list[1], '%H:%M:%S.%f'))
-                results_list.append(
-                    {'Номер': number,
-                     'Участник': f"{competitor['Имя']} "
-                                 f"{competitor['Фамилия']}",
-                     'Результат': str(time)[2:-4]
-                     }
-                )
+                if competitor:
+                    time = dt.strptime(line_list[2], '%H:%M:%S.%f') - (
+                        dt.strptime(line_list[1], '%H:%M:%S.%f'))
+                    results_list.append(
+                        {'Номер': number,
+                         'Участник': f"{competitor['Имя']} "
+                                     f"{competitor['Фамилия']}",
+                         'Результат': str(time)[2:-4]
+                         }
+                    )
             return results_list
 
     def get_results(self):
@@ -55,7 +54,7 @@ class Results(Settings):
         Сортировка результатов забега по времени. Метод получает данные о
         спортсменах, сортирует их по времени забега в порядке возрастания
         и сохраняет данные в словарь, в котором ключи - места занятые
-        спортсменами в порядке, а значения - данные о спортсменах.
+        спортсменами в порядке возрастания, а значения - данные о спортсменах.
         arg: None
         return: None
         """
