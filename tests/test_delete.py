@@ -10,18 +10,19 @@ def test_remove_files():
     config = configparser.ConfigParser()
     config.read(settings_file, encoding='utf-8')
 
-    paths = config['Paths']
-    for i, key in enumerate(paths):
+    keys = config['Paths']
+    for i, key in enumerate(keys):
         if key:
-            file = open(paths.get(key), 'w')
+            file = open(keys.get(key), 'w')
             file.write(f'Test file {i + 1}')
             file.close()
 
-    delete_result = DeleteResult()
-    delete_result.delete_results()
+    delete = DeleteResult()
+    delete.delete_results()
 
-    for key in paths:
-        assert not os.path.isfile(paths.get(key))
+    for key in keys:
+        if key:
+            assert not os.path.isfile(keys.get(key))
 
 
 if __name__ == '__main__':
