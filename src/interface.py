@@ -29,8 +29,7 @@ class Interface:
         print('3. Расчет результатов забега')
         print('4. Сохранить расчет результатов в файл')
         print('5. Удалить созданные файлы')
-        print('0. Выйти из программы')
-        print()
+        print('0. Выйти из программы\n')
 
     def check_menu_item(self):
         """
@@ -57,12 +56,11 @@ class Interface:
         arg: None
         return: None
         """
-        print('Меню программы:')
-        print()
+        print('Меню программы:\n')
         while True:
             self.show_menu()
             menu = int(input())
-            print('Выбран пункт меню: ', menu)
+            print('Выбран пункт меню:', menu)
             print()
             if menu == 1:
                 man_amount = int(input('Введите количество спортсменов: '))
@@ -96,8 +94,7 @@ class Interface:
                     self.__results.save_results()
             elif menu == 5:
                 if self.check_menu_item():
-                    print('Файлы успешно удалены.')
-                    print()
+                    print('Файлы успешно удалены.\n')
                     self.__gen_competitors = False
                     self.__gen_race = False
                     self.__delete.delete_results()
@@ -105,5 +102,4 @@ class Interface:
                 print('Выход из программы.')
                 exit()
             else:
-                print('Ошибка! Недопустимый пункт меню.')
-                print()
+                print('Ошибка! Недопустимый пункт меню.\n')
