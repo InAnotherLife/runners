@@ -10,7 +10,16 @@ class Race(Settings):
         super().__init__()
         self.__results = []
 
-    def get_numbers(self):
+    @property
+    def results(self):
+        """
+        Геттер, возвращает значение переменной __results.
+        arg: None
+        return: list
+        """
+        return self.__results
+
+    def read_numbers_file(self):
         """
         Чтение файла с номерами спортсменов.
         arg: None
@@ -43,7 +52,7 @@ class Race(Settings):
         arg: None
         return: None
         """
-        competitors_numbers = self.get_numbers()
+        competitors_numbers = self.read_numbers_file()
         for value in competitors_numbers:
             start_time, finish_time = self.get_times()
             self.__results += f'{value} {start_time} {finish_time}\n'
