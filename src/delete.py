@@ -13,7 +13,7 @@ class DeleteResult(Settings):
         arg: None
         return: None
         """
-        paths = dict(self._config.items('Paths')).values()
-        for path in paths:
-            if os.path.isfile(path):
-                os.remove(path)
+        files = dict(self._config.items('Paths')).values()
+        for file in files:
+            if os.path.isfile(file):
+                os.remove(file)
