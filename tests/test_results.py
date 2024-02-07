@@ -3,7 +3,6 @@ import os
 import pytest
 from competitors import Competitors
 from results import Results
-from race import Race
 
 competitors = {
     "004": {
@@ -96,6 +95,10 @@ def test_read_numbers_file():
     assert isinstance(competitors_data, dict)
     assert len(competitors_data) == 5
 
+    file_path = 'competitors.json'
+    if os.path.isfile(file_path):
+        os.remove(file_path)
+
 
 def test_parse_results_file(monkeypatch):
     def mock_read_competitors_file(self):
@@ -144,7 +147,7 @@ def test_save_results():
     results = Results()
     results.results = final
     results.save_results()
-    file_path = '../src/final.json'
+    file_path = 'final.json'
     assert os.path.isfile(file_path)
     if os.path.isfile(file_path):
         os.remove(file_path)

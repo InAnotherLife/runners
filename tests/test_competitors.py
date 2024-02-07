@@ -52,7 +52,7 @@ def test_save_competitors():
     competitors.competitors_amount = 10
     competitors.gen_competitors()
     competitors.save_competitors()
-    file_path = '../src/competitors.json'
+    file_path = 'competitors.json'
     assert os.path.isfile(file_path)
     if os.path.isfile(file_path):
         os.remove(file_path)

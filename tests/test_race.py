@@ -39,6 +39,10 @@ def test_read_numbers_file():
     assert isinstance(competitors_numbers, dict)
     assert len(competitors_numbers) == 5
 
+    file_path = 'competitors.json'
+    if os.path.isfile(file_path):
+        os.remove(file_path)
+
 
 def test_get_times():
     race = Race()
@@ -68,7 +72,7 @@ def test_save_race(monkeypatch):
     race = Race()
     race.calc_race()
     race.save_race()
-    file_path = '../src/results.txt'
+    file_path = 'results.txt'
     assert os.path.isfile(file_path)
     if os.path.isfile(file_path):
         os.remove(file_path)
