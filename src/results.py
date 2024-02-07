@@ -9,6 +9,24 @@ class Results(Settings):
         super().__init__()
         self.__results = {}
 
+    @property
+    def results(self):
+        """
+        Геттер, возвращает значение переменной __results.
+        arg: None
+        return: dict
+        """
+        return self.__results
+
+    @results.setter
+    def results(self, value):
+        """
+        Сеттер, устанавливает значение переменной __results.
+        arg: dict
+        return: None
+        """
+        self.__results = value
+
     def read_competitors_file(self):
         """
         Чтение файла с данными спортсменов.
