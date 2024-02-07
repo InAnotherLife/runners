@@ -28,7 +28,7 @@ competitors = {
 }
 
 
-def test_read_numbers_file(monkeypatch):
+def test_read_numbers_file():
     competitors = Competitors()
     competitors.competitors_amount = 5
     competitors.gen_competitors()
